@@ -82,6 +82,15 @@ elif [ -n "$ZSH_VERSION" ]; then
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec __capture_command
     
+    # Set up error handling hooks
+    function __check_last_command() {
+        if [[ $? -ne 0 ]]; then
+            command_not_found_handle "$__last_command"
+        fi
+    }
+    
+    add-zsh-hook precmd __check_last_command
+    
     # Set up the command not found handler
     function command_not_found_handler() {
         command_not_found_handle "$__last_command"
