@@ -70,6 +70,7 @@ if [ -n "$BASH_VERSION" ]; then
     trap '__capture_command' DEBUG
     
     # Set up the error handler
+    
     trap 'if [[ $? -eq 127 ]]; then command_not_found_handle "$__last_command"; fi' ERR   # 127 is the exit code for command not found
     trap 'if [[ $? -ne 0 ]]; then command_not_found_handle "$__last_command"; fi' ERR  # 0 is the exit code for success, trap if not 0
 elif [ -n "$ZSH_VERSION" ]; then
