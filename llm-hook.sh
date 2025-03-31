@@ -27,9 +27,9 @@ function command_not_found_handle() {
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $OPENAI_API_KEY" \
         -d "{
-            \"model\": \"gpt-3.5-turbo\",
+            \"model\": \"gpt-4o-mini\",
             \"messages\": [{\"role\": \"user\", \"content\": \"$prompt\"}],
-            \"temperature\": 0.7,
+            \"temperature\": 0.3,
             \"max_tokens\": 150
         }")
     
@@ -54,7 +54,7 @@ function command_not_found_handle() {
 }
  
 
-# Export the function so it's available to the shell
+Export the function so it's available to the shell
 export -f command_not_found_handle
 
 # Set up the command not found hook
@@ -70,6 +70,7 @@ if [ -n "$BASH_VERSION" ]; then
     trap '__capture_command' DEBUG
     
     # Set up the error handler
+    
     trap 'if [[ $? -eq 127 ]]; then command_not_found_handle "$__last_command"; fi' ERR   # 127 is the exit code for command not found
     trap 'if [[ $? -ne 0 ]]; then command_not_found_handle "$__last_command"; fi' ERR  # 0 is the exit code for success, trap if not 0
 elif [ -n "$ZSH_VERSION" ]; then
@@ -81,6 +82,15 @@ elif [ -n "$ZSH_VERSION" ]; then
     # Set up the preexec hook
     autoload -Uz add-zsh-hook
     add-zsh-hook preexec __capture_command
+    
+    # Set up error handling hooks
+    function __check_last_command() {
+        if [[ $? -ne 0 ]]; then
+            command_not_found_handle "$__last_command"
+        fi
+    }
+    
+    add-zsh-hook precmd __check_last_command
     
     # Set up the command not found handler
     function command_not_found_handler() {
