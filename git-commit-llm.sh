@@ -96,7 +96,7 @@ EOF
     echo -e "\033[1;32mgit commit -m \"\033[1;97m$user_message\033[0m\033[1;32m\"\033[0m"
     command git commit -m "$user_message"
   else
-    echo -e "\033[1;32mCommiting using LLM suggestion.\033[0m"
+    echo -e "\033[1;32mCommiting using 🤖 suggestion.\033[0m"
     echo -e "\033[1;32mgit commit -m \"\033[1;97m$llm_message\033[0m\033[1;32m\"\033[0m"
     command git commit -m "$llm_message"
   fi
