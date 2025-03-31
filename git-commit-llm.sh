@@ -94,18 +94,50 @@ EOF
     echo -e "\033[1;97mCommiting using original user message.\033[0m"
     
     # Create a simple box
-    echo -e "\033[1;35m┌────────────────────────────────────────────┐\033[0m"
-    echo -e "\033[1;35m│\033[0m git commit -m \"\033[1;97m$user_message\033[0m\" \033[1;35m│\033[0m"
-    echo -e "\033[1;35m└────────────────────────────────────────────┘\033[0m"
+    # Calculate box width based on message length (minimum 50 characters)
+    box_content="git commit -m \"$user_message\""
+    box_length=$((${#box_content} + 4)) # Add some padding
+    [ $box_length -lt 50 ] && box_length=50  # Minimum width
+    
+    # Create the top border with the calculated length
+    printf "\033[1;35m┌"
+    printf "%${box_length}s" | tr " " "─"
+    printf "┐\033[0m\n"
+    
+    # Create the message line with proper padding
+    printf "\033[1;35m│\033[0m git commit -m \"\033[1;97m$user_message\033[0m\" "
+    padding=$((box_length - ${#box_content} - 1))
+    printf "%${padding}s\033[1;35m│\033[0m\n" ""
+    
+    # Create the bottom border with the calculated length
+    printf "\033[1;35m└"
+    printf "%${box_length}s" | tr " " "─"
+    printf "┘\033[0m\n"
     
     command git commit -m "$user_message"
   else
     echo -e "\033[1;97mCommiting using 🤖 suggestion.\033[0m"
     
     # Create a simple box
-    echo -e "\033[1;35m┌────────────────────────────────────────────┐\033[0m"
-    echo -e "\033[1;35m│\033[0m git commit -m \"\033[1;97m$llm_message\033[0m\" \033[1;35m│\033[0m"
-    echo -e "\033[1;35m└────────────────────────────────────────────┘\033[0m"
+    # Calculate box width based on message length (minimum 50 characters)
+    box_content="git commit -m \"$llm_message\""
+    box_length=$((${#box_content} + 4)) # Add some padding
+    [ $box_length -lt 50 ] && box_length=50  # Minimum width
+    
+    # Create the top border with the calculated length
+    printf "\033[1;35m┌"
+    printf "%${box_length}s" | tr " " "─"
+    printf "┐\033[0m\n"
+    
+    # Create the message line with proper padding
+    printf "\033[1;35m│\033[0m git commit -m \"\033[1;97m$llm_message\033[0m\" "
+    padding=$((box_length - ${#box_content} - 1))
+    printf "%${padding}s\033[1;35m│\033[0m\n" ""
+    
+    # Create the bottom border with the calculated length
+    printf "\033[1;35m└"
+    printf "%${box_length}s" | tr " " "─"
+    printf "┘\033[0m\n"
     
     command git commit -m "$llm_message"
   fi
