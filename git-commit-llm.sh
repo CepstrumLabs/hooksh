@@ -82,7 +82,7 @@ EOF
   
   # Command in bold green, message in bold white
 
-  echo -e "\033[1;32mgit commit -m \"\033[1;97m$llm_message\033[0m\033[1;32m\"\033[0m"
+  echo -e "\033[1;97m$llm_message\033[0m"
   
   # Simple footer
   echo -e "\033[1;32m----------------------------------------------------\033[0m"
