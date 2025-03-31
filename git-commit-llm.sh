@@ -38,7 +38,7 @@ git_commit_llm() {
                tr -d '\000-\037' | 
                sed 's/[\\"`{}]//g' | 
                tr '\n' ' ' | 
-               head -c 4000)
+               head -c 100000)
   
   # Clean the user message similarly
   clean_message=$(echo "$user_message" | tr -d '\000-\037' | sed 's/[\\"`{}]//g')
@@ -86,6 +86,20 @@ EOF
   
   # Simple footer
   echo -e "\033[1;32m----------------------------------------------------\033[0m"
+
+#   Add a line saying : Proceed with the commit? (y/n)
+  echo -e "\n\033[1;32mProceed with the commit? (y/n)\033[0m"
+  read proceed
+  if [ "$proceed" != "y" ]; then
+    git commit -m "$user_message"
+    echo -e "\033[1;32mCommiting using original user message.\033[0m"
+    echo -e "\033[1;32mgit commit -m \"\033[1;97m$user_message\033[0m\033[1;32m\"\033[0m"
+    command git commit -m "$user_message"
+  else
+    echo -e "\033[1;32mCommiting using LLM suggestion.\033[0m"
+    echo -e "\033[1;32mgit commit -m \"\033[1;97m$llm_message\033[0m\033[1;32m\"\033[0m"
+    command git commit -m "$llm_message"
+  fi
   
 }
 

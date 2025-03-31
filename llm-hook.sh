@@ -29,7 +29,7 @@ function command_not_found_handle() {
         -d "{
             \"model\": \"gpt-4o-mini\",
             \"messages\": [{\"role\": \"user\", \"content\": \"$prompt\"}],
-            \"temperature\": 0.3,
+            \"temperature\": 0.2,
             \"max_tokens\": 150
         }")
     
@@ -54,7 +54,7 @@ function command_not_found_handle() {
 }
  
 
-Export the function so it's available to the shell
+# Export the function so it's available to the shell
 export -f command_not_found_handle
 
 # Set up the command not found hook
