@@ -27,9 +27,9 @@ function command_not_found_handle() {
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $OPENAI_API_KEY" \
         -d "{
-            \"model\": \"gpt-3.5-turbo\",
+            \"model\": \"gpt-4o-mini\",
             \"messages\": [{\"role\": \"user\", \"content\": \"$prompt\"}],
-            \"temperature\": 0.7,
+            \"temperature\": 0.2,
             \"max_tokens\": 150
         }")
     
