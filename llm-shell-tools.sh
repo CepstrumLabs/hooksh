@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Directory where your LLM shell tools are located
-LLM_TOOLS_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+LLM_TOOLS_DIR="$HOME/Projects/hooksh/"
 
-# Load command not found hook
-if [ -f "$LLM_TOOLS_DIR/llm-hook.sh" ]; then
-    source "$LLM_TOOLS_DIR/llm-hook.sh" > /dev/null
-else
-    echo "Warning: llm-hook.sh not found at $LLM_TOOLS_DIR"
-fi
+# # Load command not found hook
+# if [ -f "$LLM_TOOLS_DIR/llm-hook.sh" ]; then
+#     source "$LLM_TOOLS_DIR/llm-hook.sh" > /dev/null
+# else
+#     echo "Warning: llm-hook.sh not found at $LLM_TOOLS_DIR"
+# fi
 
 # Set up git commit LLM alias
 if [ -f "$LLM_TOOLS_DIR/git-commit-llm.sh" ]; then
