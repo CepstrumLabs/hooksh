@@ -149,7 +149,7 @@ git_override() {
   if [[ "$1" == "commit" && "$2" == "-m" ]]; then
     shift 2
     echo "Using git-commit-llm 🤖"
-    echo -e "\n\033[1;32mProceed with the commit? (y/n)\033[0m"
+    echo -e "\n\033[1;32mUse AI 🤖 commit suggestion? (y/n)\033[0m"
     read proceed
     if [ "$proceed" != "y" ]; then
       echo -e "\033[1;97mCommiting using original user message.\033[0m"    
