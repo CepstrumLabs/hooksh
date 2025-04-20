@@ -149,7 +149,40 @@ git_override() {
   if [[ "$1" == "commit" && "$2" == "-m" ]]; then
     shift 2
     echo "Using git-commit-llm 🤖"
+    echo -e "\n\033[1;32mUse AI 🤖 commit suggestion? (y/n)\033[0m"
+    read proceed
+    if [ "$proceed" != "y" ]; then
+      echo -e "\033[1;97mCommiting using original user message.\033[0m"    
+      # Create a simple box
+      # Calculate box width based on message length (minimum 50 characters)
+      user_message="$@"
+      box_content="git commit -m \"$user_message\""
+      box_length=$((${#box_content} + 4)) # Add some padding
+      [ $box_length -lt 50 ] && box_length=50  # Minimum width
+      
+      # Create the top border with the calculated length
+      printf "\033[1;35m┌"
+      printf "%${box_length}s" | tr " " "─"
+      printf "┐\033[0m\n"
+      
+      # Create the message line with proper padding
+      printf "\033[1;35m│\033[0m git commit -m \"\033[1;97m$user_message\033[0m\" "
+      padding=$((box_length - ${#box_content} - 1))
+      printf "%${padding}s\033[1;35m│\033[0m\n" ""
+      
+      # Create the bottom border with the calculated length
+      printf "\033[1;35m└"
+      printf "%${box_length}s" | tr " " "─"
+      printf "┘\033[0m\n"
+      
+      command git commit -m "$user_message"
+    else
+      echo -e "\033[1;97mCommiting using 🤖 suggestion.\033[0m"
+      git_commit_llm "$@"
+    fi
     git_commit_llm "$@"
+    
+    
   else
     command git "$@"
   fi
