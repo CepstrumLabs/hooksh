@@ -29,7 +29,9 @@ if ! type escape_json > /dev/null 2>&1; then
 /\\n}"    # Newlines
         echo "$content"
     }
-    export -f escape_json
+    if [[ -n "$BASH_VERSION" ]]; then
+        export -f escape_json
+    fi
 fi
 
 # Common setup for both tools - ensure OPENAI_API_KEY is set

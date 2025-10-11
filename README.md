@@ -23,35 +23,38 @@ An enhanced `git commit` command that leverages an LLM to suggest improved commi
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/llm-shell-tools.git
-   cd llm-shell-tools
+   git clone https://github.com/CepstrumLabs/hooksh
+   cd hooksh
    ```
 
-2. Make the scripts executable:
-   ```bash
-   chmod +x llm-hook.sh git-commit-llm.sh
+2. Set your OpenAI API key:
+   Add this to your `.zshrc` or `.bashrc` for persistence.
+   
+   or for `zsh`:
+   
+   ```shell
+   echo 'export OPENAI_API_KEY="sk-xxxxxxx"' >> ~/.zshrc
    ```
 
-3. Create a loader script (optional):
+   For `bash`:
+   ```shell
+   echo 'export OPENAI_API_KEY="sk-xxxxxxx"' >> ~/.bashrc
+   ```
+3. Add to your shell configuration:
+   
+   For `zsh`:
+
    ```bash
-   cp llm-shell-tools.sh.example llm-shell-tools.sh
-   # Edit the file to set your correct paths
+   echo "source $(pwd)/llm-shell-tools.sh" >> ~/.zshrc
    ```
 
-4. Add to your shell configuration:
+   For `bash`:
+
    ```bash
-   # Add to .bashrc or .zshrc:
-   source /path/to/llm-shell-tools.sh
-   # Or source each tool individually:
-   source /path/to/llm-hook.sh
-   alias gcai="bash /path/to/git-commit-llm.sh"
+   echo "source $(pwd)/llm-shell-tools.sh" >> ~/.bashrc
    ```
 
-5. Set your OpenAI API key:
-   ```bash
-   export OPENAI_API_KEY='your-api-key-here'
-   ```
-   Add this to your `.bashrc` or `.zshrc` for persistence.
+
 
 ## Usage
 
