@@ -58,7 +58,7 @@ An enhanced `git commit` command that leverages an LLM to suggest improved commi
 
 ## Usage
 
-### Command Not Found Hook
+### Command Not Found Hook[Currently deactivated]
 
 Once installed, this works automatically when you type a non-existent command:
 
